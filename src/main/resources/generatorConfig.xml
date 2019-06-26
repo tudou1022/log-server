@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+    <classPathEntry location="C:\Users\DIGTAL-ZHANGWB\Desktop\study\mysql-connector-java-5.1.8.jar" />
+
+    <context id="context1" >
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/log" userId="root" password="root" />
+
+        <javaModelGenerator targetPackage="com.boge.logserver.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="com.boge.logserver.dao" targetProject="src/main/java"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <table tableName="log_info_test" domainObjectName="LogInfoTest"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"></generatedKey>
+        </table>
+
+       <!--<table tableName="user_thums" domainObjectName="UserThumsDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="user_id" sqlStatement="MySql" identity="true"></generatedKey>-->
+        <!--</table>-->
+       <!--<table tableName="thums_flow" domainObjectName="ThumsFlowDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="flow_id" sqlStatement="MySql" identity="true"></generatedKey>-->
+        <!--</table>-->
+        <!--<table tableName="employ_question_option" domainObjectName="EmployQuestionOptionDO"-->
+        <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--<generatedKey column="id" sqlStatement="MySql" identity="true"></generatedKey>-->
+        <!--</table>-->
+        <!--<table tableName="employ_question" domainObjectName="EmployQuestionDO"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"></generatedKey>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,13 @@
+server:
+  port: 9898
+spring:
+  profiles:
+    active: dev
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.boge.logserver.dao
+logging:
+  level:
+    com.boge.logserver.dao: debug
+

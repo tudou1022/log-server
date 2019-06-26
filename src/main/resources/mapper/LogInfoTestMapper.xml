@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boge.logserver.dao.LogInfoTestMapper" >
+  <resultMap id="BaseResultMap" type="com.boge.logserver.domain.LogInfoTest" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="isDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="classPath" property="classpath" jdbcType="VARCHAR" />
+    <result column="error_method" property="errorMethod" jdbcType="VARCHAR" />
+    <result column="error_info" property="errorInfo" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="editTime" property="edittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, level, isDelete, classPath, error_method, error_info, createTime, editTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from log_info_test
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log_info_test
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boge.logserver.domain.LogInfoTest" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into log_info_test (level, isDelete, classPath, 
+      error_method, error_info, createTime, 
+      editTime)
+    values (#{level,jdbcType=INTEGER}, #{isdelete,jdbcType=INTEGER}, #{classpath,jdbcType=VARCHAR}, 
+      #{errorMethod,jdbcType=VARCHAR}, #{errorInfo,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{edittime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boge.logserver.domain.LogInfoTest" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into log_info_test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="classpath != null" >
+        classPath,
+      </if>
+      <if test="errorMethod != null" >
+        error_method,
+      </if>
+      <if test="errorInfo != null" >
+        error_info,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="edittime != null" >
+        editTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="classpath != null" >
+        #{classpath,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMethod != null" >
+        #{errorMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="errorInfo != null" >
+        #{errorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boge.logserver.domain.LogInfoTest" >
+    update log_info_test
+    <set >
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="classpath != null" >
+        classPath = #{classpath,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMethod != null" >
+        error_method = #{errorMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="errorInfo != null" >
+        error_info = #{errorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        editTime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boge.logserver.domain.LogInfoTest" >
+    update log_info_test
+    set level = #{level,jdbcType=INTEGER},
+      isDelete = #{isdelete,jdbcType=INTEGER},
+      classPath = #{classpath,jdbcType=VARCHAR},
+      error_method = #{errorMethod,jdbcType=VARCHAR},
+      error_info = #{errorInfo,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      editTime = #{edittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getLogInfoList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from log_info_test
+    where isDelete = 0
+    <if test="dataStart != null ">
+      AND createTime &gt;= #{dataStart}
+      AND createTime &lt; #{dataEnd}
+    </if>
+    <if test="level != null">
+      AND level in ( ${level} )
+    </if>
+    ORDER BY createTime DESC
+    <if test="pageIndex != null and pageSize != null">
+      limit ${pageIndex},${pageSize}
+    </if>
+  </select>
+  <select id="getInfoCountByMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(*)
+    from  log_info_test
+    where 1=1
+    <if test="dataStart != null ">
+        AND createTime &gt;= #{dataStart}
+        AND createTime &lt; #{dataEnd}
+    </if>
+    <if test="level != null">
+      AND level in ( ${level} )
+    </if>
+  </select>
+</mapper>
